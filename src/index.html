@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- スリックスライダーのスタイルシート -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css"/>
+  <!-- カスタムのスタイルシート -->
+  <style>
+    /* スライド要素のスタイル */
+    .slide {
+      height: auto;
+      background-color: rgb(244, 242, 242);
+      text-align: center;
+      font-size: 20px;
+      color: rgb(31, 29, 29);
+      padding: 28px 16px 16px;
+    }
+
+    .slide-contents {
+      width: 300px;
+      margin: auto;
+    }
+
+    .img {
+      width: 100%;
+    }
+
+    /* カルーセルのスタイル */
+    .carousel {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    /* アローナビゲーションのスタイル */
+    .slick-prev,
+    .slick-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .slick-prev {
+      left: -40px;
+    }
+
+    .slick-next {
+      right: -40px;
+    }
+
+    /* ドットナビゲーションのスタイル */
+    .slick-dots {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .slick-dots li {
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    .slick-dots li button {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .slick-dots li.slick-active button {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <div class="slide">
+      <div class="slide-contents">
+        <img src="../src/gif/swing-6077_256.gif" alt="" class="img">
+        <p>slide1</p>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-contents">
+        <img src="../src/gif/swing-6077_256.gif" alt="" class="img">
+        <p>slide2</p>
+      </div>      
+    </div>
+    <div class="slide">
+      <div class="slide-contents">
+        <img src="../src/gif/donation-766_256.gif" alt="" class="img">
+        <p>slide3</p>
+      </div> 
+    </div>
+    <div class="slide">
+      <div class="slide-contents">
+        <img src="../src/gif/donation-766_256.gif" alt="" class="img">
+        <p>slide4</p>
+      </div> 
+    </div>
+  </div>
+
+  <!-- jQuery スクリプト -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- スリックスライダーのスクリプト -->
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+  $('.carousel').slick({
+    // ここにスライダーの設定を行います。例えば、以下のようになります：
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+  });
+
+  $('.carousel').on('afterChange', function(event, slick, currentSlide){
+    var currentGifElement = $('.carousel .slick-current .img')[0];
+    console.log(currentGifElement);
+
+    var gifUrl = $(currentGifElement).attr('src');
+    console.log(gifUrl);
+
+    gifUrl = gifUrl.split('?')[0]; // URLの既存のクエリパラメータを削除
+    console.log(gifUrl);
+
+    gifUrl += '?random=' + new Date().getTime(); // タイムスタンプを追加
+    console.log(gifUrl);
+
+    $(currentGifElement).attr('src', '');
+    $(currentGifElement).attr('src', gifUrl);
+  });
+});
+  </script>
+</body>
+</html>
